@@ -11,7 +11,7 @@ ENV JENKINS_FOLDER /usr/share/jenkins
 
 # Build Args
 ARG LIBMESOS_DOWNLOAD_URL=https://downloads.mesosphere.io/libmesos-bundle/libmesos-bundle-1.11.0.tar.gz
-ARG LIBMESOS_DOWNLOAD_SHA256=bd4a785393f0477da7f012bf9624aa7dd65aa243c94d38ffe94adaa10de30274
+ARG LIBMESOS_DOWNLOAD_SHA256=52ee36afbf79ee774457f4203bc29e3307cde17b9cfc32478dcc9933db57122b
 ARG BLUEOCEAN_VERSION=1.6.2
 ARG JENKINS_STAGING=/usr/share/jenkins/ref/
 ARG JENKINS_DCOS_HOME=/var/jenkinsdcos_home
