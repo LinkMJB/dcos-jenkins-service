@@ -10,9 +10,9 @@ WORKDIR /tmp
 ENV JENKINS_FOLDER /usr/share/jenkins
 
 # Build Args
-ARG LIBMESOS_DOWNLOAD_URL=https://downloads.mesosphere.io/libmesos-bundle/libmesos-bundle-1.11.0.tar.gz
-ARG LIBMESOS_DOWNLOAD_SHA256=52ee36afbf79ee774457f4203bc29e3307cde17b9cfc32478dcc9933db57122b
-ARG BLUEOCEAN_VERSION=1.6.2
+ARG LIBMESOS_DOWNLOAD_URL=https://downloads.mesosphere.io/libmesos-bundle/libmesos-bundle-1.12.0.tar.gz
+ARG LIBMESOS_DOWNLOAD_SHA256=217c43e4b642c1abdfe0fe309bbaede878cbc9a925562678b1c44273d140d40a
+ARG BLUEOCEAN_VERSION=1.9.0
 ARG JENKINS_STAGING=/usr/share/jenkins/ref/
 ARG JENKINS_DCOS_HOME=/var/jenkinsdcos_home
 ARG user=nobody
@@ -59,114 +59,12 @@ COPY conf/jenkins/nodeMonitors.xml "${JENKINS_STAGING}/nodeMonitors.xml"
 COPY scripts/init.groovy.d/mesos-auth.groovy "${JENKINS_STAGING}/init.groovy.d/mesos-auth.groovy"
 
 # add plugins
-RUN /usr/local/bin/install-plugins.sh       \
-  blueocean-bitbucket-pipeline:${BLUEOCEAN_VERSION}    \
-  blueocean-commons:${BLUEOCEAN_VERSION}    \
-  blueocean-config:${BLUEOCEAN_VERSION}     \
-  blueocean-dashboard:${BLUEOCEAN_VERSION}  \
-  blueocean-events:${BLUEOCEAN_VERSION}     \
-  blueocean-git-pipeline:${BLUEOCEAN_VERSION}          \
-  blueocean-github-pipeline:${BLUEOCEAN_VERSION}       \
-  blueocean-i18n:${BLUEOCEAN_VERSION}       \
-  blueocean-jwt:${BLUEOCEAN_VERSION}        \
-  blueocean-jira:${BLUEOCEAN_VERSION}       \
-  blueocean-personalization:${BLUEOCEAN_VERSION}        \
-  blueocean-pipeline-api-impl:${BLUEOCEAN_VERSION}      \
-  blueocean-pipeline-editor:${BLUEOCEAN_VERSION}        \
-  blueocean-pipeline-scm-api:${BLUEOCEAN_VERSION}       \
-  blueocean-rest-impl:${BLUEOCEAN_VERSION}  \
-  blueocean-rest:${BLUEOCEAN_VERSION}       \
-  blueocean-web:${BLUEOCEAN_VERSION}        \
-  blueocean:${BLUEOCEAN_VERSION}            \
-  ant:1.8                        \
-  ansicolor:0.5.2                \
-  antisamy-markup-formatter:1.5  \
-  artifactory:2.16.2             \
-  authentication-tokens:1.3      \
-  azure-credentials:1.6.0        \
-  azure-vm-agents:0.7.3          \
-  branch-api:2.0.20              \
-  build-name-setter:1.6.9        \
-  build-timeout:1.19             \
-  cloudbees-folder:6.5.1         \
-  conditional-buildstep:1.3.6    \
-  config-file-provider:2.18      \
-  copyartifact:1.39.1            \
-  cvs:2.14                       \
-  docker-build-publish:1.3.2     \
-  docker-workflow:1.17           \
-  durable-task:1.25              \
-  ec2:1.39                       \
-  embeddable-build-status:1.9    \
-  external-monitor-job:1.7       \
-  ghprb:1.42.0                   \
-  git:3.9.1                      \
-  git-client:2.7.3               \
-  git-server:1.7                 \
-  github:1.29.2                  \
-  github-api:1.92                \
-  github-branch-source:2.3.6     \
-  github-organization-folder:1.6 \
-  gitlab-plugin:1.5.9            \
-  gradle:1.29                    \
-  greenballs:1.15                \
-  handlebars:1.1.1               \
-  ivy:1.28                       \
-  jackson2-api:2.8.11.3          \
-  job-dsl:1.70                   \
-  jobConfigHistory:2.18          \
-  jquery:1.12.4-0                \
-  ldap:1.20                      \
-  mapdb-api:1.0.9.0              \
-  marathon:1.6.0                 \
-  matrix-auth:2.3                \
-  matrix-project:1.13            \
-  maven-plugin:3.1.2             \
-  mesos:0.17.1                   \
-  metrics:4.0.2.2                \
-  metrics-graphite:3.0           \
-  monitoring:1.73.1              \
-  nant:1.4.3                     \
-  node-iterator-api:1.5.0        \
-  pam-auth:1.4                   \
-  parameterized-trigger:2.35.2   \
-  pipeline-build-step:2.7        \
-  pipeline-github-lib:1.0        \
-  pipeline-input-step:2.8        \
-  pipeline-milestone-step:1.3.1  \
-  pipeline-model-api:1.3.2       \
-  pipeline-model-definition:1.3.2 \
-  pipeline-model-extensions:1.3.2 \
-  pipeline-rest-api:2.10         \
-  pipeline-stage-step:2.3        \
-  pipeline-stage-view:2.10       \
-  plain-credentials:1.4          \
-  prometheus:2.0.0               \
-  rebuild:1.28                   \
-  role-strategy:2.9.0            \
-  run-condition:1.2              \
-  s3:0.11.2                      \
-  saferestart:0.3                \
-  saml:1.0.7                     \
-  scm-api:2.2.7                  \
-  ssh-agent:1.16                 \
-  ssh-slaves:1.28                \
-  subversion:2.11.1              \
-  timestamper:1.8.10             \
-  translation:1.16               \
-  variant:1.1                    \
-  windows-slaves:1.3.1           \
-  workflow-aggregator:2.5        \
-  workflow-api:2.27              \
-  workflow-basic-steps:2.8.2     \
-  workflow-cps:2.55              \
-  workflow-cps-global-lib:2.11   \
-  workflow-durable-task-step:2.21 \
-  workflow-job:2.25              \
-  workflow-multibranch:2.20      \
-  workflow-scm-step:2.6          \
-  workflow-step-api:2.16         \
-  workflow-support:2.20
+# REFERENCE: https://updates.jenkins-ci.org/download/plugins/
+COPY plugins.conf /tmp/
+RUN sed -i "s/\${BLUEOCEAN_VERSION}/${BLUEOCEAN_VERSION}/g" /tmp/plugins.conf
+RUN /usr/local/bin/install-plugins.sh < /tmp/plugins.conf
+# USE THIS WHEN DEBUGGING
+#RUN /usr/local/bin/plugins.sh /tmp/plugins.conf
 
 # change the config for $user
 # alias uid to $uid - should match nobody for host
