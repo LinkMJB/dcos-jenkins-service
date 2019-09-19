@@ -69,10 +69,10 @@ ADD https://infinity-artifacts.s3.amazonaws.com/statsd-jenkins/metrics-graphite.
 # alias uid to $uid - should match nobody for host
 # set home directory to JENKINS_HOME
 # change gid to $gid
-RUN groupadd -g ${gid} nobody \
-    && usermod -u ${uid} -g ${gid} ${user} \
-    && usermod -a -G users nobody \
-    && echo "nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin" >> /etc/passwd
+RUN grep "^nobody:" /etc/passwd >/dev/null && { \
+    usermod -u 65534 -g 65534 nobody \
+    && usermod -a -G users nobody; } \
+    || echo "nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin" >> /etc/passwd
 
 RUN chmod -R ugo+rw "$JENKINS_HOME" "${JENKINS_FOLDER}" \
     && chmod -R ugo+r "${JENKINS_STAGING}" \
